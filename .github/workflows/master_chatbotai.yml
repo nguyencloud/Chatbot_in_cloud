@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Bỏ qua hết kiểm tra rườm rà, đóng gói trực tiếp toàn bộ source code luôn
+      # Đóng gói trực tiếp toàn bộ source code từ GitHub sang Artifact
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
@@ -30,6 +30,7 @@ jobs:
       contents: read
 
     steps:
+      # Giải nén thẳng vào thư mục gốc của runner để không bị đẻ ra thư mục con trùng tên
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
@@ -43,6 +44,7 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_DF3E0EBBC6F14A3181AAF2E23A0649E2 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_93060406495E4ED6BEE8258BFA96691B }}
 
+      # Đẩy toàn bộ dữ liệu sạch lên Azure Web App
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
