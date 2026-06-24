@@ -66,5 +66,5 @@ jobs:
         with:
           app-name: 'Chatbotai'
           slot-name: 'Production'
-          package: .
+          package: .  
           
